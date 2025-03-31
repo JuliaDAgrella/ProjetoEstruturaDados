@@ -31,34 +31,6 @@ public class Pais {
 	}
 	
 	
-	public static void bubblesort(double tarifaPremium) {
-		double[] precos = new double[100];
-		double[] pais = new double[100];
-		int i;
-		int j;
-		double aux;
-		double auxTar;
-		
-	//	método bubblesort
-	for(j=0; j<100;j++) {
-		for(i =0; i<99;i++) {
-			if(precos[i] > precos[i+1]) {
-				aux = precos[i];
-				auxTar = pais[i];
-				precos[i] = precos[i+1];
-				pais[i] = pais[i+1];
-				precos[i+1] = aux;
-				pais[i+1] = auxTar;
-				
-			}
-		}
-	}
-	
-	for(i=95;i<100;i++) {
-		System.out.println("Paises com as Tarifas Premium mais caras: ");
-		System.out.println(precos[i] + pais[i]);
-	}
-}
 }
 		
 

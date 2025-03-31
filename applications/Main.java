@@ -42,14 +42,14 @@ public class Main {
 		
 	    
 	    do{
-	        System.out.println("1 - Carregar dados do arquivo");
+	    	System.out.println("-------------------------------");
+	        System.out.println("\n1 - Carregar dados do arquivo");
 	        System.out.println("2 - Exibir os 5 países que têm a tarifa premium mais cara");
 	        System.out.println("3 - Exibir todos os registros em ordem crescente de tarifa básica");
 	        System.out.println("4 - Comparar preço entre dois países");
 	        System.out.println("5 - Estatísticas");
 	        System.out.println("6 - SAIR");
-	        System.out.println("");
-	        System.out.println("Digite a opção desejada: ");
+	        System.out.print("\nDigite a opção desejada: ");
 	        opcao = sc.nextInt();
 	        
 	        switch(opcao){
@@ -57,15 +57,26 @@ public class Main {
 	            	lista.show();
 	                break;
 	            case 2:
-	            		System.out.println();
+	            	Vetor listaPremium = new Vetor(lista.size);
+                    for (int i = 0; i < lista.size; i++) {
+                        listaPremium.add(i, lista.get(i));
+                    }
+                    listaPremium.bubbleSortPremium();
+                    System.out.println("-------------------------------");
+                    System.out.println("\nOs 5 países com a tarifa premium mais cara:");
+                    for (int i = 0; i < Math.min(5, listaPremium.size); i++) {
+                        listaPremium.get(i).CarregarArquivo();
+                    }
 	                break;
 	           case 3:
 	               break;
 	           case 4:
 	               break;
 	           case 5:
+	        	   lista.calcularEstatisticas();
 	               break;
 	           case 6:
+	        	   System.out.println("Saindo...");
 	               break;
 
 	           default:

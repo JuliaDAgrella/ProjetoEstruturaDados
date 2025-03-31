@@ -72,5 +72,56 @@ public class Vetor {
 	        
 	       System.out.println("\nFim da lista!!");
 	    }
+	 
+	 public void bubbleSortPremium() {
+	        int n = size;
+	        boolean trocado;
+	        for (int i = 0; i < n - 1; i++) {
+	            trocado = false;
+	            for (int j = 0; j < n - i - 1; j++) {
+	                if (A[j].tarifaPremium < A[j + 1].tarifaPremium) {
+	                    Pais temp = A[j];
+	                    A[j] = A[j + 1];
+	                    A[j + 1] = temp;
+	                    trocado = true;
+	                }
+	            }
+	            if (!trocado) {
+	                break;
+	            }
+	        }
+	    }
+	 
+	 public void calcularEstatisticas() {
+	        if (!isEmpty()) {
+	            double somaBasica = 0;
+	            double somaStandard = 0;
+	            double somaPremium = 0;
+	            int somaTitulos = 0;
+
+	            for (int i = 0; i < size; i++) {
+	                Pais pais = A[i];
+	                somaBasica += pais.tarifaBasica;
+	                somaStandard += pais.tarifaStandard;
+	                somaPremium += pais.tarifaPremium;
+	                somaTitulos += pais.qtdeTitulos;
+	            }
+
+	            double mediaBasica = somaBasica / size;
+	            double mediaStandard = somaStandard / size;
+	            double mediaPremium = somaPremium / size;
+	            double mediaTitulos = (double) somaTitulos / size;
+
+	            System.out.println("\nEstatísticas:");
+	            System.out.printf("Média da Tarifa Básica: %.2f\n", mediaBasica);
+	            System.out.printf("Média da Tarifa Standard: %.2f\n", mediaStandard);
+	            System.out.printf("Média da Tarifa Premium: %.2f\n", mediaPremium);
+	            System.out.printf("Média da Quantidade de Títulos: %.2f\n", mediaTitulos);
+	        } else {
+	            System.out.println("Não há dados para calcular as estatísticas.");
+	        }
+	    }
 }
+
+
 	 
