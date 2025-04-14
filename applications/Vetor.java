@@ -1,5 +1,11 @@
 package applications;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
 public class Vetor {
 	Pais[]A;
 	int capacity;
@@ -66,14 +72,15 @@ public class Vetor {
 	    }
 	 
 	 public void show() {
-	       // mostra todo o conteúdo da lista
-	       for (int i=0;i<size;i++)
+	        // mostra todo o conteúdo da lista
+	        for (int i=0;i<size;i++)
 	           A[i].CarregarArquivo();
 	        
 	       System.out.println("\nFim da lista!!");
 	    }
 	 
 	 public void bubbleSortPremium() {
+			//
 	        int n = size;
 	        boolean trocado;
 	        for (int i = 0; i < n - 1; i++) {
@@ -91,8 +98,101 @@ public class Vetor {
 	            }
 	        }
 	    }
+
+		public void mostrarPaisesOrdenados() {
+			// ordena países em ordem de tarifa básica usando Merge Sort
+			if (size <= 1) {
+				return;
+			}
+			Pais[] tempArray = Arrays.copyOf(A, size);
+			mergeSort(tempArray, 0, size - 1);
+	
+			System.out.println("-------------------------------");
+			System.out.println("\nPaíses ordenados por tarifa básica em ordem crescente:");
+			for (Pais pais : tempArray) {
+				pais.CarregarArquivo();
+			}
+		}
+	
+		private void mergeSort(Pais[] array, int esquerda, int direita) {
+			if (esquerda < direita) {
+				int meio = esquerda + (direita - esquerda) / 2;
+				mergeSort(array, esquerda, meio);
+				mergeSort(array, meio + 1, direita);
+				merge(array, esquerda, meio, direita);
+			}
+		}
+	
+		private void merge(Pais[] array, int esquerda, int meio, int direita) {
+			int n1 = meio - esquerda + 1;
+			int n2 = direita - meio;
+	
+			Pais[] esquerdaArray = new Pais[n1];
+			Pais[] direitaArray = new Pais[n2];
+	
+			for (int i = 0; i < n1; i++) {
+				esquerdaArray[i] = array[esquerda + i];
+			}
+			for (int j = 0; j < n2; j++) {
+				direitaArray[j] = array[meio + 1 + j];
+			}
+	
+			int i = 0, j = 0, k = esquerda;
+			while (i < n1 && j < n2) {
+				if (esquerdaArray[i].tarifaBasica <= direitaArray[j].tarifaBasica) {
+					array[k++] = esquerdaArray[i++];
+				} else {
+					array[k++] = direitaArray[j++];
+				}
+			}
+	
+			while (i < n1) {
+				array[k++] = esquerdaArray[i++];
+			}
+	
+			while (j < n2) {
+				array[k++] = direitaArray[j++];
+			}
+		}
+
+		public void compararPrecos() {
+			//compara preço entre dois países
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("Digite a sigla do primeiro país: ");
+			String sigla1 = scanner.nextLine().toUpperCase(); // Converter para maiúsculas
+			System.out.print("Digite a sigla do segundo país: ");
+			String sigla2 = scanner.nextLine().toUpperCase(); // Converter para maiúsculas
+	
+			Pais pais1 = null;
+			Pais pais2 = null;
+	
+			for (int i = 0; i < size; i++) {
+				if (A[i].sigla.equalsIgnoreCase(sigla1)) {
+					pais1 = A[i];
+				}
+				if (A[i].sigla.equalsIgnoreCase(sigla2)) {
+					pais2 = A[i];
+				}
+			}
+	
+			if (pais1 == null || pais2 == null) {
+				if (pais1 == null) {
+					System.out.println("País com a sigla " + sigla1 + " não encontrado.");
+				}
+				if (pais2 == null) {
+					System.out.println("País com a sigla " + sigla2 + " não encontrado.");
+				}
+			} else {
+				System.out.println("-------------------------------");
+				System.out.println("\nComparação de preços entre " + pais1.pais + " e " + pais2.pais + ":");
+				System.out.printf("%s - Tarifa Básica: %.2f, Tarifa Standard: %.2f, Tarifa Premium: %.2f\n",
+						pais1.pais, pais1.tarifaBasica, pais1.tarifaStandard, pais1.tarifaPremium);
+				System.out.printf("%s - Tarifa Básica: %.2f, Tarifa Standard: %.2f, Tarifa Premium: %.2f\n",
+						pais2.pais, pais2.tarifaBasica, pais2.tarifaStandard, pais2.tarifaPremium);
+			}
+		}
 	 
-	 public void calcularEstatisticas() {
+	 	public void calcularEstatisticas() {
 	        if (!isEmpty()) {
 	            double somaBasica = 0;
 	            double somaStandard = 0;

@@ -68,19 +68,21 @@ public class Main {
                         listaPremium.get(i).CarregarArquivo();
                     }
 	                break;
-	           case 3:
-	               break;
-	           case 4:
-	               break;
-	           case 5:
-	        	   lista.calcularEstatisticas();
-	               break;
-	           case 6:
-	        	   System.out.println("Saindo...");
-	               break;
+	            case 3:
+					lista.mostrarPaisesOrdenados();
+	                break;
+				case 4:
+					lista.compararPrecos();
+				    break;
+	            case 5:
+	        	    lista.calcularEstatisticas();
+	                break;
+	            case 6:
+	        	    System.out.println("Saindo...");
+	                break;
 
-	           default:
-	                System.out.println("Digite uma opção válida!");
+	            default:
+	                 System.out.println("Digite uma opção válida!");
 	               
 	        }
 	           
